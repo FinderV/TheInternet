@@ -7,6 +7,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -16,7 +17,8 @@ public class Hovers {
 
     private static final String BASE_URL = "http://the-internet.herokuapp.com/hovers";
     private static final String NOT_FOUND = "Not Found";
-    private static String baseFigurePath = "//div[@class='figure'][%s]//%s";
+    private static String BASE_FIGURE_PATH = "//div[@class='figure'][%s]//%s";
+    private static  int FIRST_INDEX = 0;
     private WebDriver driver;
 
 
@@ -37,7 +39,7 @@ public class Hovers {
         public void confirmNameOfFirstUser(){
         driver.get(BASE_URL);
         Actions action = new Actions(driver);
-        action.moveToElement(driver.findElements(By.className("figure")).get(0)).perform();
+        action.moveToElement(driver.findElements(By.className("figure")).get(FIRST_INDEX)).perform();
         String user1NameText = driver.findElement(getUserNameTextLocator(1)).getText();
         Assert.assertEquals(user1NameText, "name: user1");
         }
@@ -81,14 +83,19 @@ public class Hovers {
     }
 
     private By getUserNameTextLocator(int userNumber) {
-        return By.xpath(String.format(baseFigurePath, userNumber, "h5"));
+        return By.xpath(String.format(BASE_FIGURE_PATH, userNumber, "h5"));
     }
 
     private By getUserLinkLocator(int userNumber) {
-        return By.xpath(String.format(baseFigurePath, userNumber, "a"));
+        return By.xpath(String.format(BASE_FIGURE_PATH, userNumber, "a"));
     }
 
     private String getNotFoundText() {
         return driver.findElement(By.xpath("//body")).getAttribute("innerText");
+    }
+
+    @AfterClass
+    public void closeBrowser() {
+        driver.quit();
     }
 }
