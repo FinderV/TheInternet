@@ -12,25 +12,13 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class Dropdown {
+public class Dropdown extends BaseTest {
 
-    private WebDriver driver;
-
-    @BeforeClass
-    public void setupBrowser() {
-        //System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
-        WebDriverManager.chromedriver().setup();
-        ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.addArguments("--incognito");
-        driver = new ChromeDriver(chromeOptions);
-        //driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.get("http://the-internet.herokuapp.com/dropdown");
-
-    }
+    private static final String BASE_URL = "http://the-internet.herokuapp.com/dropdown";
 
     @Test
     public void dropdownTest() {
+        driver.get(BASE_URL);
         WebElement element = driver.findElement(By.id("dropdown"));
         Select select = new Select( element);
         select.selectByVisibleText("Option 1");
@@ -39,10 +27,5 @@ public class Dropdown {
         select.selectByVisibleText("Option 2");
         String selectedOptionSecond = select.getFirstSelectedOption().getText();
         Assert.assertEquals(selectedOptionSecond, "Option 2");
-    }
-
-    @AfterClass
-    public void closeBrowser() {
-        driver.quit();
     }
 }

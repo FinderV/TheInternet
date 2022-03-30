@@ -13,28 +13,20 @@ import org.testng.annotations.Test;
 
 import javax.swing.*;
 
-public class Hovers {
+public class Hovers extends BaseTest {
 
     private static final String BASE_URL = "http://the-internet.herokuapp.com/hovers";
     private static final String NOT_FOUND = "Not Found";
     private static String BASE_FIGURE_PATH = "//div[@class='figure'][%s]//%s";
     private static  int FIRST_INDEX = 0;
-    private WebDriver driver;
 
 
     @BeforeClass
-    public void setupBrowser() {
-        WebDriverManager.chromedriver().setup();
-        ChromeOptions chromeOptions = new ChromeOptions();
-        //chromeOptions.setHeadless(false);
-        chromeOptions.addArguments("--incognito");
-        chromeOptions.addArguments("--disable-popup-blocking");
-        //chromeOptions.addArguments("--incognito");
-        driver = new ChromeDriver(chromeOptions);
-        //driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.get("http://the-internet.herokuapp.com/hovers");
+    public void setupBrowser1() {
+        System.out.println("11111111111");
     }
+
+
     @Test(priority = 1)
         public void confirmNameOfFirstUser(){
         driver.get(BASE_URL);
@@ -94,8 +86,4 @@ public class Hovers {
         return driver.findElement(By.xpath("//body")).getAttribute("innerText");
     }
 
-    @AfterClass
-    public void closeBrowser() {
-        driver.quit();
-    }
 }
