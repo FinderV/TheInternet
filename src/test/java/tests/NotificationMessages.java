@@ -43,8 +43,8 @@ public class NotificationMessages {
         System.out.println(actualResult);
         //String s = driver.findElement(By.xpath("div[@id='flash']")).getText();
         //System.out.println(s);
-        Assert.assertEquals(actualResult, expectedResult);
-
+        //Assert.assertEquals(actualResult, expectedResult);
+         Assert.assertTrue(actualResult.contains(expectedResult));
 
     }
 
