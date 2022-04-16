@@ -33,6 +33,7 @@ public class Dropdown extends BaseTest {
 //        String selectedOptionSecond = select.getFirstSelectedOption().getText();
 //        Assert.assertEquals(selectedOptionSecond, "Option 2");
 
+
     //фрейм:
         @Test
     public void frameTest() {
